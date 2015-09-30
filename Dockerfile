@@ -5,6 +5,12 @@ ENV DEBIAN_FRONTEND noninteractive
 
 RUN mkdir -p /var/run/apache2 /var/lock/apache2
 
+# Clear out any existing postfix and re-configure
+RUN apt-get remove -y --purge postfix
+RUN echo "postfix postfix/main_mailer_type select  Internet with smarthost" | debconf-set-selections
+RUN echo "postfix postfix/mailname string mail.example.com" | debconf-set-selections
+RUN echo "postfix postfix/relayhost string [smtp.mandrillapp.com]:587" | debconf-set-selections
+
 RUN apt-get update \
     && apt-get install -y \
     # Apache\PHP
@@ -14,7 +20,7 @@ RUN apt-get update \
     # Build Deps
     build-essential curl make \
     # Other Deps
-    pdftk zip \
+    pdftk zip postfix libsasl2-modules \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
