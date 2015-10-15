@@ -20,7 +20,7 @@ RUN apt-get update \
     # Build Deps
     build-essential curl make \
     # Other Deps
-    pdftk zip postfix libsasl2-modules \
+    pdftk zip postfix libsasl2-modules git zlib1g-dev \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
@@ -37,6 +37,8 @@ RUN pecl install xdebug-2.2.6 \
 RUN a2enmod ssl \
     && a2enmod php5 \
     && a2enmod rewrite
+
+RUN docker-php-ext-install zip
 
 RUN curl -sS https://getcomposer.org/installer | php && mv composer.phar /usr/local/bin/composer
 
