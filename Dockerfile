@@ -3,7 +3,6 @@ MAINTAINER Jeffery Utter "jeff.utter@firespring.com"
 
 ENV DEBIAN_FRONTEND noninteractive
 
-RUN ln -sf /usr/share/zoneinfo/CST6CDT /etc/localtime
 RUN mkdir -p /var/run/apache2 /var/lock/apache2
 
 # Clear out any existing postfix and re-configure
