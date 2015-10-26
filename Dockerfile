@@ -32,13 +32,14 @@ RUN pecl install xdebug-2.2.6 \
     && pear install PHP_CodeSniffer \
     && pecl install memcache \
     && pecl install redis \
+    && pecl install zip \
     && pecl install mogilefs-0.9.2
+
+RUN php5enmod zip
 
 RUN a2enmod ssl \
     && a2enmod php5 \
     && a2enmod rewrite
-
-RUN docker-php-ext-install zip
 
 RUN curl -sS https://getcomposer.org/installer | php && mv composer.phar /usr/local/bin/composer
 
