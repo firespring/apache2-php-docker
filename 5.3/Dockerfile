@@ -6,7 +6,7 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN mkdir -p /var/run/apache2 /var/lock/apache2
 
 # Clear out any existing postfix and re-configure
-RUN apt-get remove -y --purge postfix
+RUN if [ `dpkg -s postfix >/dev/null 2>&1; echo $?` -eq 0 ]; then apt-get remove -y --purge postfix; fi;
 RUN echo "postfix postfix/main_mailer_type select  Internet with smarthost" | debconf-set-selections
 RUN echo "postfix postfix/mailname string mail.example.com" | debconf-set-selections
 RUN echo "postfix postfix/relayhost string [smtp.mandrillapp.com]:587" | debconf-set-selections
