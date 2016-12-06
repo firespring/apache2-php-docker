@@ -31,7 +31,8 @@ RUN pecl install xdebug-2.2.6 \
 
 RUN a2enmod ssl \
     && a2enmod php5 \
-    && a2enmod rewrite
+    && a2enmod rewrite \
+    && a2enmod headers
 
 RUN a2dissite 000-default
 RUN a2dismod autoindex
