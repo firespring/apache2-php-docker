@@ -5,12 +5,15 @@ ENV DEBIAN_FRONTEND noninteractive
 
 RUN mkdir -p /var/run/apache2 /var/lock/apache2
 
-RUN apt-get update \
-    && apt-get install -y \
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get -y install software-properties-common
+
+RUN apt-get update && add-apt-repository ppa:ondrej/php
+    
+RUN apt-get update && apt-get install -y --force-yes\
     # Apache\PHP
-    apache2 libapache2-mod-gnutls php5 php5-mysql php5-curl php5-xcache php-pear php5-gd php-xml-parser php5-dev \
+    apache2 libapache2-mod-gnutls php5.6 php5.6-mcrypt php5.6-curl php5.6-dev php5.6-mbstring php5.6-curl php5.6-cli php5.6-mysql php5.6-gd php5.6-intl php5.6-xsl php5.6-zip php-xcache php-pear php5-gd php-xml-parser\
     # Mogile
-    libpcre3-dev libxml2-dev libneon27-dev \
+    libpcre3-dev libxml2-dev libneon27-dev libzip-dev \
     # Build Deps
     build-essential curl make \
     # Other Deps
@@ -30,7 +33,7 @@ RUN pecl install xdebug-2.2.6 \
     && pecl install mogilefs-0.9.2
 
 RUN a2enmod ssl \
-    && a2enmod php5 \
+    && a2enmod php5.6 \
     && a2enmod rewrite \
     && a2enmod headers
 
@@ -45,8 +48,8 @@ ENV APACHE_RUN_DIR /var/run/apache2
 ENV APPLICATION_ENV local
 
 COPY apache2/apache2.conf /etc/apache2/
-COPY php/conf.d/ /etc/php5/apache2/conf.d/
-COPY php/conf.d/ /etc/php5/cli/conf.d/
+COPY php/conf.d/ /etc/php/5.6/apache2/conf.d/
+COPY php/conf.d/ /etc/php/5.6/cli/conf.d/
 
 COPY apache2-foreground /usr/local/bin/
 
