@@ -27,6 +27,7 @@ RUN curl -s -o phpunit-3.7.31.phar https://phar.phpunit.de/phpunit-3.7.31.phar \
 
 RUN pecl install xdebug-2.2.6 \
     && pear install PHP_CodeSniffer \
+    && pecl install apcu-4.0.11 \
     && pecl install memcache \
     && pecl install redis-2.2.8 \
     && pecl install zip \
