@@ -29,8 +29,7 @@ RUN pear install PHP_CodeSniffer \
     && pecl install apcu-5.1.12 \
     && echo no | pecl install memcached \
     && pecl install redis \
-    && pecl install zip \
-    && pecl install mogilefs
+    && pecl install zip
 
 RUN a2enmod ssl \
     && a2enmod php7.2 \
