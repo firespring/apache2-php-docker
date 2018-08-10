@@ -1,4 +1,4 @@
-FROM ubuntu:14.04
+FROM ubuntu:16.04
 MAINTAINER Firespring "info.dev@firespring.com"
 
 ENV DEBIAN_FRONTEND noninteractive
@@ -11,7 +11,7 @@ RUN apt-get update && add-apt-repository ppa:ondrej/php
 
 RUN apt-get update && apt-get install -y --force-yes\
     # Apache\PHP
-    apache2 libapache2-mod-gnutls php5.6 php5.6-mcrypt php5.6-curl php5.6-dev php5.6-mbstring php5.6-curl php5.6-cli php5.6-mysql php5.6-gd php5.6-intl php5.6-xsl php5.6-zip php-xcache php-pear php5-gd php-xml-parser\
+    apache2 libapache2-mod-gnutls libapache2-mod-php7.2 php7.2 php7.2-mcrypt php7.2-curl php7.2-common php7.2-dev php7.2-mbstring php7.2-curl php7.2-cli php7.2-mysql php7.2-gd php7.2-intl php7.2-xsl php7.2-zip php-xcache php-pear php5-gd php-xml-parser \
     # Mogile
     libpcre3-dev libxml2-dev libneon27-dev libzip-dev \
     # Build Deps
@@ -34,7 +34,7 @@ RUN pecl install xdebug-2.2.6 \
     && pecl install mogilefs-0.9.2
 
 RUN a2enmod ssl \
-    && a2enmod php5.6 \
+    && a2enmod php7.2 \
     && a2enmod rewrite \
     && a2enmod headers
 
@@ -49,8 +49,8 @@ ENV APACHE_RUN_DIR /var/run/apache2
 ENV APPLICATION_ENV local
 
 COPY apache2/apache2.conf /etc/apache2/
-COPY php/conf.d/ /etc/php/5.6/apache2/conf.d/
-COPY php/conf.d/ /etc/php/5.6/cli/conf.d/
+COPY php/conf.d/ /etc/php/7.2/apache2/conf.d/
+COPY php/conf.d/ /etc/php/7.2/cli/conf.d/
 
 COPY apache2-foreground /usr/local/bin/
 
