@@ -37,7 +37,7 @@ RUN a2enmod ssl \
     && a2enmod headers
 
 RUN a2dissite 000-default
-RUN a2dismod autoindex
+RUN a2dismod -f autoindex
 
 RUN curl -sS https://getcomposer.org/installer | php && mv composer.phar /usr/local/bin/composer
 
