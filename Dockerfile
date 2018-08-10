@@ -11,7 +11,7 @@ RUN apt-get update && LC_ALL=C.UTF-8 add-apt-repository ppa:ondrej/php
 
 RUN apt-get update && apt-get install -y --force-yes\
     # Apache\PHP
-    apache2 libapache2-mod-gnutls libapache2-mod-php7.2 php7.2 php7.2-curl php7.2-common php7.2-dev php7.2-mbstring php7.2-curl php7.2-cli php7.2-mysql php7.2-gd php7.2-intl php7.2-xsl php7.2-zip php-xcache php-pear php5-gd php-xml-parser \
+    apache2 libapache2-mod-gnutls libapache2-mod-php7.2 php7.2 php7.2-curl php7.2-common php7.2-dev php7.2-mbstring php7.2-curl php7.2-cli php7.2-mysql php7.2-gd php7.2-intl php7.2-xsl php7.2-zip php-xcache php-pear php7.2-gd php-xml-parser \
     # Mogile
     libpcre3-dev libxml2-dev libneon27-dev libzip-dev \
     # Build Deps
