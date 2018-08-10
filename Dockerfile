@@ -26,7 +26,7 @@ RUN curl -s -o phpunit-3.7.31.phar https://phar.phpunit.de/phpunit-3.7.31.phar \
     && mv phpunit-3.7.31.phar /usr/local/bin/phpunit
 
 RUN pear install PHP_CodeSniffer \
-    && pecl install apcu-4.0.11 \
+    && pecl install apcu-5.1.12 \
     && pecl install memcache \
     && pecl install redis-2.2.8 \
     && pecl install zip \
