@@ -30,7 +30,7 @@ RUN pear install PHP_CodeSniffer \
     && echo no | pecl install memcached \
     && pecl install redis \
     && pecl install zip \
-    && pecl install mogilefs-0.9.2
+    && pecl install mogilefs
 
 RUN a2enmod ssl \
     && a2enmod php7.2 \
