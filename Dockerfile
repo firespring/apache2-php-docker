@@ -7,7 +7,7 @@ RUN mkdir -p /var/run/apache2 /var/lock/apache2
 
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get -y install software-properties-common
 
-RUN apt-get update && add-apt-repository ppa:ondrej/php
+RUN apt-get update && LC_ALL=C.UTF-8 add-apt-repository ppa:ondrej/php
 
 RUN apt-get update && apt-get install -y --force-yes\
     # Apache\PHP
