@@ -25,7 +25,7 @@ RUN curl -s -o phpunit-3.7.31.phar https://phar.phpunit.de/phpunit-3.7.31.phar \
     && chmod 777 phpunit-3.7.31.phar \
     && mv phpunit-3.7.31.phar /usr/local/bin/phpunit
 
-RUN pecl install xdebug-2.6.1 \
+RUN pecl install xdebug \
     && pear install PHP_CodeSniffer \
     && pecl install apcu-5.1.12 \
     && echo no | pecl install memcached \
