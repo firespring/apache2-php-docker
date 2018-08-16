@@ -21,9 +21,9 @@ RUN apt-get update && apt-get install -y --force-yes\
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-RUN curl -s -o phpunit-3.7.31.phar https://phar.phpunit.de/phpunit-3.7.31.phar \
-    && chmod 777 phpunit-3.7.31.phar \
-    && mv phpunit-3.7.31.phar /usr/local/bin/phpunit
+RUN curl -s -o phpunit-7.3.2.phar https://phar.phpunit.de/phpunit-7.3.2.phar \
+    && chmod 777 phpunit-7.3.2.phar \
+    && mv phpunit-7.3.2.phar /usr/local/bin/phpunit
 
 RUN pecl install xdebug-2.6.1 \
     && pear install PHP_CodeSniffer \
