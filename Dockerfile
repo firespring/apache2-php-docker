@@ -1,4 +1,4 @@
-FROM ubuntu:16.04
+FROM php:7.2-apache-stretch
 MAINTAINER Firespring "info.dev@firespring.com"
 
 ENV DEBIAN_FRONTEND noninteractive
