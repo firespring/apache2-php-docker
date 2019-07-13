@@ -10,6 +10,16 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get -y install apt-util
 RUN apt-get update && LC_ALL=C.UTF-8 add-apt-repository 'deb https://packages.sury.org/php/ stretch main' \
     && apt-key adv --fetch-keys https://packages.sury.org/php/apt.gpg
 
+# Use the default production configuration
+# except Prioritize Sury php-gd package
+RUN set -eux; \
+	{ \
+		echo 'Package: php*-gd'; \
+		echo 'Pin: release *'; \
+		echo 'Pin-Priority: 1'; \
+    && mkdir -p /etc/php/7.2/apache2 && mkdir -p /etc/php/7.2/cli \
+    && cp "$PHP_INI_DIR/php.ini-development" "/etc/php/7.2/apache2/php.ini"
+	} >> /etc/apt/preferences.d/no-debian-php
 RUN apt-get update && apt-get install -y --force-yes \
     # Apache\PHP
     apache2 libapache2-mod-gnutls libapache2-mod-php7.2 php7.2 php7.2-curl php7.2-common php7.2-dev php7.2-mbstring php7.2-curl php7.2-cli php7.2-mysql php7.2-gd php7.2-intl php7.2-xsl php7.2-zip php-xcache php-pear php7.2-gd php-xml-parser php-memcached libhiredis-dev libhiredis0.13 libphp-predis \
