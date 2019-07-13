@@ -5,11 +5,12 @@ ENV DEBIAN_FRONTEND noninteractive
 
 RUN mkdir -p /var/run/apache2 /var/lock/apache2
 
-
-RUN apt-get update && LC_ALL=C.UTF-8 add-apt-repository ppa:ondrej/php
-
-RUN apt-get update && apt-get install -y --force-yes\
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get -y install apt-utils apt-transport-https software-properties-common
+
+RUN apt-get update && LC_ALL=C.UTF-8 add-apt-repository 'deb https://packages.sury.org/php/ stretch main' \
+    && apt-key adv --fetch-keys https://packages.sury.org/php/apt.gpg
+
+RUN apt-get update && apt-get install -y --force-yes \
     # Apache\PHP
     apache2 libapache2-mod-gnutls libapache2-mod-php7.2 php7.2 php7.2-curl php7.2-common php7.2-dev php7.2-mbstring php7.2-curl php7.2-cli php7.2-mysql php7.2-gd php7.2-intl php7.2-xsl php7.2-zip php-xcache php-pear php7.2-gd php-xml-parser php-memcached libhiredis-dev libhiredis0.13 libphp-predis \
     # Mogile
