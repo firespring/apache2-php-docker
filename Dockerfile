@@ -18,9 +18,9 @@ RUN set -eux; \
 		echo 'Pin: release *'; \
 		echo 'Pin-Priority: 1'; \
 	} >> /etc/apt/preferences.d/no-debian-php \
-    && mkdir -p /etc/php/7.2/apache2 && mkdir -p /etc/php/7.2/cli \
-    && cp "$PHP_INI_DIR/php.ini-production" "/etc/php/7.2/apache2/php.ini" \
-    && mv "$PHP_INI_DIR/php.ini-production" "/etc/php/7.2/cli/php.ini"
+    && mkdir -p /usr/local/etc/php/7.2/apache2 && mkdir -p /usr/local/etc/php/7.2/cli \
+    && cp "$PHP_INI_DIR/php.ini-production" "/usr/local/etc/php/7.2/apache2/php.ini" \
+    && mv "$PHP_INI_DIR/php.ini-production" "/usr/local/etc/php/7.2/cli/php.ini"
 
 RUN apt-get update && apt-get install -y --force-yes \
     # Apache\PHP
