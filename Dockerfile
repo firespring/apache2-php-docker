@@ -24,6 +24,7 @@ RUN set -eux; \
 
 RUN apt-get update && apt-get install -y --force-yes \
     # Apache\PHP
+    libphp-predis \
     # Build Deps
     build-essential curl make \
     # Other Deps
@@ -33,9 +34,13 @@ RUN apt-get update && apt-get install -y --force-yes \
 
 RUN curl -s -o phpunit-7.3.2.phar https://phar.phpunit.de/phpunit-7.3.2.phar \
     && chmod 777 phpunit-7.3.2.phar \
-    && mv phpunit-7.3.2.phar /usr/local/bin/phpunit \
+    && mv phpunit-7.3.2.phar /usr/local/bin/phpunit
+
+RUN pecl config-set php_ini "$PHP_INI_DIR" \
     && pear install PHP_CodeSniffer \
     && pecl install apcu-5.1.12
+    && pecl install redis-5.0.1 \
+    && docker-php-ext-enable redis
 
 RUN a2enmod ssl \
     && a2enmod rewrite \
