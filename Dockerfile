@@ -35,7 +35,7 @@ RUN curl -s -o phpunit-7.3.2.phar https://phar.phpunit.de/phpunit-7.3.2.phar \
     && chmod 777 phpunit-7.3.2.phar \
     && mv phpunit-7.3.2.phar /usr/local/bin/phpunit \
     && pear install PHP_CodeSniffer \
-    && pecl install apcu-5.1.12 \
+    && pecl install apcu-5.1.12
 
 RUN a2enmod ssl \
     && a2enmod rewrite \
