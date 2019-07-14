@@ -49,6 +49,12 @@ RUN a2enmod ssl \
 RUN a2dissite 000-default
 RUN a2dismod -f autoindex
 
+RUN git clone https://github.com/nrk/phpiredis.git \
+    && ls -altr \
+    && cd phpiredis \
+    && phpize && ./configure --enable-phpiredis \
+    && make && make install \
+    && cd .. && rm -rf phpiredis
 
 RUN curl -sS https://getcomposer.org/installer | php && mv composer.phar /usr/local/bin/composer
 
