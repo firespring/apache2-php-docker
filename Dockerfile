@@ -38,7 +38,7 @@ RUN curl -s -o phpunit-7.3.2.phar https://phar.phpunit.de/phpunit-7.3.2.phar \
 
 RUN pecl config-set php_ini "$PHP_INI_DIR" \
     && pear install PHP_CodeSniffer \
-    && pecl install apcu-5.1.12
+    && pecl install apcu-5.1.12 \
     && pecl install redis-5.0.1 \
     && docker-php-ext-enable redis
 
