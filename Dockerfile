@@ -25,7 +25,7 @@ RUN set -eux; \
 RUN apt-get update && apt-get install -y --force-yes \
     # Apache\PHP
     # Build Deps
-    build-essential curl make \
+    build-essential curl make gnupg \
     # Other Deps
     pdftk zip git \
     && apt-get clean \
