@@ -64,8 +64,8 @@ ENV APACHE_RUN_DIR /var/run/apache2
 ENV APPLICATION_ENV local
 
 COPY apache2/apache2.conf /etc/apache2/
-COPY php/conf.d/ /etc/php/7.2/apache2/conf.d/
-COPY php/conf.d/ /etc/php/7.2/cli/conf.d/
+COPY php/conf.d/* /usr/local/etc/php/7.2/apache2/conf.d/
+COPY php/conf.d/* /usr/local/etc/php/7.2/cli/conf.d/
 
 COPY apache2-foreground /usr/local/bin/
 
