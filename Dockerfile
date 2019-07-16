@@ -43,7 +43,7 @@ RUN pecl config-set php_ini "$PHP_INI_DIR" \
     && pecl install redis-5.0.1 \
     && docker-php-ext-enable redis \
     && docker-php-ext-install mysqli \
-    && docker-php-ext-enable redis xdebug
+    && docker-php-ext-enable redis xdebug mysqli
 
 RUN a2enmod ssl \
     && a2enmod rewrite \
