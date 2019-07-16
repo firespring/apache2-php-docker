@@ -37,11 +37,14 @@ RUN curl -s -o phpunit-7.3.2.phar https://phar.phpunit.de/phpunit-7.3.2.phar \
     && mv phpunit-7.3.2.phar /usr/local/bin/phpunit
 
 RUN pecl config-set php_ini "$PHP_INI_DIR" \
+    && pecl install xdebug-2.6.1 \
     && pear install PHP_CodeSniffer \
     && pecl install apcu-5.1.12 \
     && pecl install redis-5.0.1 \
     && docker-php-ext-enable redis \
     && docker-php-ext-install mysqli
+    && docker-php-ext-install mysqli \
+    && docker-php-ext-enable redis xdebug
 
 RUN a2enmod ssl \
     && a2enmod rewrite \
