@@ -42,7 +42,6 @@ RUN pecl config-set php_ini "$PHP_INI_DIR" \
     && pecl install apcu-5.1.12 \
     && pecl install redis-5.0.1 \
     && docker-php-ext-enable redis \
-    && docker-php-ext-install mysqli
     && docker-php-ext-install mysqli \
     && docker-php-ext-enable redis xdebug
 
