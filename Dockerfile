@@ -12,15 +12,6 @@ RUN apt-get update && LC_ALL=C.UTF-8 add-apt-repository 'deb https://packages.su
 
 # Use the default production configuration
 # except Prioritize Sury php-gd package
-RUN set -eux; \
-	{ \
-		echo 'Package: php*-gd'; \
-		echo 'Pin: release *'; \
-		echo 'Pin-Priority: 1'; \
-	} >> /etc/apt/preferences.d/no-debian-php \
-    && mkdir -p /usr/local/etc/php/7.2/apache2 && mkdir -p /usr/local/etc/php/7.2/cli \
-    && cp "$PHP_INI_DIR/php.ini-production" "/usr/local/etc/php/7.2/apache2/php.ini" \
-    && mv "$PHP_INI_DIR/php.ini-production" "/usr/local/etc/php/7.2/cli/php.ini"
 
 RUN apt-get update && apt-get install -y --force-yes \
     # Apache\PHP
@@ -32,19 +23,22 @@ RUN apt-get update && apt-get install -y --force-yes \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
+
+ADD https://raw.githubusercontent.com/mlocati/docker-php-extension-installer/master/install-php-extensions /usr/local/bin/
+
+RUN chmod uga+x /usr/local/bin/install-php-extensions && sync && \
+    install-php-extensions gd xdebug mysqli
+
 RUN curl -s -o phpunit-7.3.2.phar https://phar.phpunit.de/phpunit-7.3.2.phar \
     && chmod 777 phpunit-7.3.2.phar \
     && mv phpunit-7.3.2.phar /usr/local/bin/phpunit
 
 RUN pecl config-set php_ini "$PHP_INI_DIR" \
-    && pecl install xdebug-2.6.1 \
     && pear install PHP_CodeSniffer \
     && pecl install apcu-5.1.12 \
     && pecl install redis-5.0.1 \
-    && docker-php-ext-install mysqli \
-    && docker-php-ext-enable redis \
-    && docker-php-ext-enable xdebug \
-    && docker-php-ext-enable mysqli
+    && docker-php-ext-enable redis
+
 
 RUN a2enmod ssl \
     && a2enmod rewrite \
