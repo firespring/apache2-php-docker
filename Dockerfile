@@ -40,8 +40,8 @@ RUN pecl config-set php_ini "$PHP_INI_DIR" \
     && pear install PHP_CodeSniffer \
     && pecl install apcu-5.1.12 \
     && pecl install redis-5.0.1 \
-    && docker-php-ext-enable redis
-    && docker-php-ext-install mysqli \
+    && docker-php-ext-enable redis \
+    && docker-php-ext-install mysqli
 
 RUN a2enmod ssl \
     && a2enmod rewrite \
