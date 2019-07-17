@@ -21,11 +21,11 @@ RUN set -eux; \
 
 RUN apt-get update && apt-get install -y --force-yes \
     # Apache\PHP
-    libhiredis-dev libhiredis0.13 libphp-predis \
+    php-gd libhiredis-dev libhiredis0.13 libphp-predis \
     # Build Deps
     build-essential curl make \
     # Other Deps
-    pdftk zip git \
+    pdftk zip git libpng-dev libjpeg-dev \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
     && docker-php-ext-install mysqli \
