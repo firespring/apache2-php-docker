@@ -19,7 +19,10 @@ RUN apt-get update && apt-get install -y --force-yes \
     # Other Deps
     pdftk zip git \
     && apt-get clean \
-    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
+    && docker-php-ext-install mysqli \
+    && docker-php-ext-install redis \
+    && docker-php-ext-install gd
 
 
 RUN curl -s -o phpunit-7.3.2.phar https://phar.phpunit.de/phpunit-7.3.2.phar \
@@ -28,9 +31,7 @@ RUN curl -s -o phpunit-7.3.2.phar https://phar.phpunit.de/phpunit-7.3.2.phar \
 
 RUN pecl config-set php_ini "$PHP_INI_DIR" \
     && pear install PHP_CodeSniffer \
-    && pecl install apcu-5.1.12 \
-    && pecl install redis-5.0.1 \
-    && docker-php-ext-enable redis
+    && pecl install apcu-5.1.12
 
 RUN a2enmod ssl \
     && a2enmod rewrite \
