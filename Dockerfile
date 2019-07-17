@@ -12,6 +12,12 @@ RUN apt-get update && LC_ALL=C.UTF-8 add-apt-repository 'deb https://packages.su
 
 # Use the default production configuration
 # except Prioritize Sury php-gd package
+RUN set -eux; \
+	{ \
+		echo 'Package: php*-gd'; \
+		echo 'Pin: release *'; \
+		echo 'Pin-Priority: 1'; \
+	} >> /etc/apt/preferences.d/no-debian-php
 
 RUN apt-get update && apt-get install -y --force-yes \
     # Apache\PHP
