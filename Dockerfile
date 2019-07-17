@@ -14,9 +14,6 @@ RUN apt-get update && LC_ALL=C.UTF-8 add-apt-repository 'deb https://packages.su
 # except Prioritize Sury php-gd package
 RUN set -eux; \
 	{ \
-		echo 'Package: php*-redis'; \
-		echo 'Pin: release *'; \
-		echo 'Pin-Priority: 1'; \
 		echo 'Package: php*-gd'; \
 		echo 'Pin: release *'; \
 		echo 'Pin-Priority: 1'; \
@@ -24,7 +21,7 @@ RUN set -eux; \
 
 RUN apt-get update && apt-get install -y --force-yes \
     # Apache\PHP
-    php-redis libhiredis-dev libhiredis0.13  libphp-predis \
+    libhiredis-dev libhiredis0.13 libphp-predis \
     # Build Deps
     build-essential curl make \
     # Other Deps
@@ -32,7 +29,6 @@ RUN apt-get update && apt-get install -y --force-yes \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
     && docker-php-ext-install mysqli \
-    && docker-php-ext-install redis \
     && docker-php-ext-install gd
 
 
@@ -42,7 +38,8 @@ RUN curl -s -o phpunit-7.3.2.phar https://phar.phpunit.de/phpunit-7.3.2.phar \
 
 RUN pecl config-set php_ini "$PHP_INI_DIR" \
     && pear install PHP_CodeSniffer \
-    && pecl install apcu-5.1.12
+    && pecl install apcu-5.1.12 \
+    && pecl install redis-5.0.1
 
 RUN a2enmod ssl \
     && a2enmod rewrite \
