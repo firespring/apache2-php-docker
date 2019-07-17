@@ -13,7 +13,7 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get -y install apt-util
 
 RUN apt-get update && apt-get install -y --force-yes \
     # Apache\PHP
-    libhiredis-dev libhiredis0.13  libphp-predis \
+    php-redis libhiredis-dev libhiredis0.13  libphp-predis \
     # Build Deps
     build-essential curl make \
     # Other Deps
