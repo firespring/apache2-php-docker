@@ -14,6 +14,9 @@ RUN apt-get update && LC_ALL=C.UTF-8 add-apt-repository 'deb https://packages.su
 # except Prioritize Sury php-gd package
 RUN set -eux; \
 	{ \
+		echo 'Package: php*-redis'; \
+		echo 'Pin: release *'; \
+		echo 'Pin-Priority: 1'; \
 		echo 'Package: php*-gd'; \
 		echo 'Pin: release *'; \
 		echo 'Pin-Priority: 1'; \
