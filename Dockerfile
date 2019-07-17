@@ -7,8 +7,6 @@ RUN mkdir -p /var/run/apache2 /var/lock/apache2
 
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get -y install apt-utils apt-transport-https software-properties-common gnupg
 
-RUN apt-get update && LC_ALL=C.UTF-8 add-apt-repository 'deb https://packages.sury.org/php/ stretch main' \
-    && apt-key adv --fetch-keys https://packages.sury.org/php/apt.gpg
 
 # Use the default production configuration
 # except Prioritize Sury php-gd package
