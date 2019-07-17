@@ -24,11 +24,6 @@ RUN apt-get update && apt-get install -y --force-yes \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 
-ADD https://raw.githubusercontent.com/mlocati/docker-php-extension-installer/master/install-php-extensions /usr/local/bin/
-
-RUN chmod uga+x /usr/local/bin/install-php-extensions && sync && \
-    install-php-extensions gd xdebug mysqli
-
 RUN curl -s -o phpunit-7.3.2.phar https://phar.phpunit.de/phpunit-7.3.2.phar \
     && chmod 777 phpunit-7.3.2.phar \
     && mv phpunit-7.3.2.phar /usr/local/bin/phpunit
@@ -38,7 +33,6 @@ RUN pecl config-set php_ini "$PHP_INI_DIR" \
     && pecl install apcu-5.1.12 \
     && pecl install redis-5.0.1 \
     && docker-php-ext-enable redis
-
 
 RUN a2enmod ssl \
     && a2enmod rewrite \
