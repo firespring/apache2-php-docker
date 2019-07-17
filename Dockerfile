@@ -21,7 +21,7 @@ RUN set -eux; \
 
 RUN apt-get update && apt-get install -y --force-yes \
     # Apache\PHP
-    php-gd libhiredis-dev libhiredis0.13 libphp-predis \
+    php7.2-mysql php-gd libhiredis-dev libhiredis0.13 libphp-predis \
     # Build Deps
     build-essential curl make \
     # Other Deps
