@@ -21,18 +21,12 @@ RUN set -eux; \
 
 RUN apt-get update && apt-get install -y --force-yes \
     # Apache\PHP
-    php7.2-mysql php-gd libhiredis-dev libhiredis0.13 libphp-predis \
+    php*-mysql php*-dev php-gd libhiredis-dev libhiredis0.13 libphp-predis \
     # Build Deps
     build-essential curl make \
     # Other Deps
-    pdftk zip git libpng-dev libjpeg-dev \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+    pdftk zip git libpng-dev libjpeg-dev
 
-
-RUN curl -s -o phpunit-7.3.2.phar https://phar.phpunit.de/phpunit-7.3.2.phar \
-    && chmod 777 phpunit-7.3.2.phar \
-    && mv phpunit-7.3.2.phar /usr/local/bin/phpunit
 
 RUN pecl config-set php_ini "$PHP_INI_DIR" \
     && pear install PHP_CodeSniffer \
@@ -40,6 +34,10 @@ RUN pecl config-set php_ini "$PHP_INI_DIR" \
     && pecl install redis-5.0.1 \
     && docker-php-ext-install mysqli \
     && docker-php-ext-install gd
+
+RUN curl -s -o phpunit-7.3.2.phar https://phar.phpunit.de/phpunit-7.3.2.phar \
+    && chmod 777 phpunit-7.3.2.phar \
+    && mv phpunit-7.3.2.phar /usr/local/bin/phpunit
 
 RUN a2enmod ssl \
     && a2enmod rewrite \
@@ -56,6 +54,9 @@ RUN git clone https://github.com/nrk/phpiredis.git \
     && cd .. && rm -rf phpiredis
 
 RUN curl -sS https://getcomposer.org/installer | php && mv composer.phar /usr/local/bin/composer
+
+RUN apt-get clean \
+    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Apache Config
 ENV APACHE_LOCK_DIR /var/lock/apache2
