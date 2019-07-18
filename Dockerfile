@@ -43,7 +43,8 @@ RUN pecl config-set php_ini "$PHP_INI_DIR" \
     && pecl install apcu-5.1.12 \
     && pecl install redis-5.0.1 \
     && docker-php-ext-install mysqli \
-    && docker-php-ext-install gd
+    && docker-php-ext-install gd \
+    && docker-php-ext-enable redis
 
 RUN curl -s -o phpunit-7.3.2.phar https://phar.phpunit.de/phpunit-7.3.2.phar \
     && chmod 777 phpunit-7.3.2.phar \
