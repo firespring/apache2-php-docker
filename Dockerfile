@@ -2,6 +2,16 @@ FROM php:7.2-apache-stretch
 MAINTAINER Firespring "info.dev@firespring.com"
 
 ENV DEBIAN_FRONTEND noninteractive
+ENV SERVER_NAME=localhost
+ENV APACHE_RUN_USER=www-data
+ENV APACHE_RUN_GROUP=www-data
+ENV APACHE_PID_FILE=/var/run/apache2/apache2.pid
+ENV APACHE_RUN_DIR=/var/run/apache2
+ENV APACHE_LOCK_DIR=/var/lock/apache2
+ENV APACHE_LOG_DIR=/var/log/apache2
+ENV APACHE_LOG_LEVEL=warn
+ENV APACHE_CUSTOM_LOG_FILE=/proc/self/fd/1
+ENV APACHE_ERROR_LOG_FILE=/proc/self/fd/2
 
 RUN mkdir -p /var/run/apache2 /var/lock/apache2
 
@@ -69,15 +79,5 @@ COPY php/conf.d/* /usr/local/etc/php/7.2/cli/conf.d/
 
 COPY apache2-foreground /usr/local/bin/
 
-ENV SERVER_NAME=localhost
-ENV APACHE_RUN_USER=www-data
-ENV APACHE_RUN_GROUP=www-data
-ENV APACHE_PID_FILE=/var/run/apache2/apache2.pid
-ENV APACHE_RUN_DIR=/var/run/apache2
-ENV APACHE_LOCK_DIR=/var/lock/apache2
-ENV APACHE_LOG_DIR=/var/log/apache2
-ENV APACHE_LOG_LEVEL=warn
-ENV APACHE_CUSTOM_LOG_FILE=/proc/self/fd/1
-ENV APACHE_ERROR_LOG_FILE=/proc/self/fd/2
 
 CMD ["apache2-foreground"]
