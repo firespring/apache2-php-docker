@@ -42,9 +42,11 @@ RUN pecl config-set php_ini "$PHP_INI_DIR" \
     && pear install PHP_CodeSniffer \
     && pecl install apcu-5.1.12 \
     && pecl install redis-5.0.1 \
+    && docker-php-ext-enable redis \
     && docker-php-ext-install mysqli \
-    && docker-php-ext-install gd \
-    && docker-php-ext-enable redis
+    && docker-php-ext-install gd
+
+RUN php -m && ls -altr /usr/local/etc/php/conf.d && ls -altr /usr/local/etc/php/7.2/apache2/conf.d/
 
 RUN curl -s -o phpunit-7.3.2.phar https://phar.phpunit.de/phpunit-7.3.2.phar \
     && chmod 777 phpunit-7.3.2.phar \
@@ -80,5 +82,6 @@ COPY php/conf.d/* /usr/local/etc/php/7.2/cli/conf.d/
 
 COPY apache2-foreground /usr/local/bin/
 
+RUN php -m && ls -altr /usr/local/etc/php/conf.d && ls -altr /usr/local/etc/php/7.2/apache2/conf.d/
 
 CMD ["apache2-foreground"]
