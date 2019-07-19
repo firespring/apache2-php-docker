@@ -81,6 +81,5 @@ COPY php/conf.d/* /usr/local/etc/php/7.2/cli/conf.d/
 COPY apache2-foreground /usr/local/bin/
 
 # PHP Config
-RUN mv "$PHP_INI_DIR/php.ini-production" "/usr/local/etc/php/php.ini"
 
 CMD ["apache2-foreground"]
