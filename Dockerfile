@@ -35,7 +35,7 @@ RUN apt-get update && apt-get install -y --force-yes \
     # Build Deps
     build-essential curl make \
     # Other Deps
-    pdftk zip git libpng-dev libjpeg-dev libfreetype6-dev libwebp-dev
+    pdftk zip git libpng-dev libjpeg-dev libfreetype6-dev libwebp-dev libxpm-dev
 
 
 RUN docker-php-ext-configure gd \
