@@ -31,11 +31,11 @@ RUN set -eux; \
 
 RUN apt-get update && apt-get install -y --force-yes \
     # Apache\PHP
-    php*-mysql php*-dev php-gd php-redis libhiredis-dev libhiredis0.13 libphp-predis \
+    php*-mysql php*-dev php*-gd php-redis libhiredis-dev libhiredis0.13 libphp-predis \
     # Build Deps
     build-essential curl make \
     # Other Deps
-    pdftk zip git libpng-dev libjpeg-dev
+    pdftk zip git libpng-dev libjpeg-dev libfreetype6-dev
 
 
 RUN pecl config-set php_ini "$PHP_INI_DIR" \
@@ -45,8 +45,6 @@ RUN pecl config-set php_ini "$PHP_INI_DIR" \
     && docker-php-ext-enable redis \
     && docker-php-ext-install mysqli \
     && docker-php-ext-install gd
-
-RUN php -m && ls -altr /usr/local/etc/php/conf.d
 
 RUN curl -s -o phpunit-7.3.2.phar https://phar.phpunit.de/phpunit-7.3.2.phar \
     && chmod 777 phpunit-7.3.2.phar \
@@ -82,6 +80,5 @@ COPY php/conf.d/* /usr/local/etc/php/7.2/cli/conf.d/
 
 COPY apache2-foreground /usr/local/bin/
 
-RUN php -m && ls -altr /usr/local/etc/php/conf.d
 
 CMD ["apache2-foreground"]
