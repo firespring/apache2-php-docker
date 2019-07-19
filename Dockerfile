@@ -39,13 +39,13 @@ RUN apt-get update && apt-get install -y --force-yes \
 
 
 RUN docker-php-ext-configure gd \
-    --with-gd \
-    --with-webp-dir \
-    --with-jpeg-dir \
-    --with-png-dir \
-    --with-zlib-dir \
-    --with-xpm-dir \
-    --with-freetype-dir \
+    --with-gd=shared\
+    --with-webp-dir=/usr \
+    --with-jpeg-dir=/usr \
+    --with-png-dir=/usr \
+    --with-zlib-dir=/usr \
+    --with-xpm-dir=/usr \
+    --with-freetype-dir=/usr \
     --enable-gd-native-ttf \
     && pecl config-set php_ini "$PHP_INI_DIR" \
     && pear install PHP_CodeSniffer \
