@@ -38,7 +38,16 @@ RUN apt-get update && apt-get install -y --force-yes \
     pdftk zip git libpng-dev libjpeg-dev libfreetype6-dev
 
 
-RUN pecl config-set php_ini "$PHP_INI_DIR" \
+RUN docker-php-ext-configure gd \
+    --with-gd \
+    --with-webp-dir \
+    --with-jpeg-dir \
+    --with-png-dir \
+    --with-zlib-dir \
+    --with-xpm-dir \
+    --with-freetype-dir \
+    --enable-gd-native-ttf \
+    && pecl config-set php_ini "$PHP_INI_DIR" \
     && pear install PHP_CodeSniffer \
     && pecl install apcu-5.1.12 \
     && pecl install redis-5.0.1 \
