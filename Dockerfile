@@ -35,25 +35,16 @@ RUN apt-get update && apt-get install -y --force-yes \
     # Build Deps
     build-essential curl make \
     # Other Deps
-    pdftk zip git libpng-dev libjpeg-dev libfreetype6-dev libwebp-dev libxpm-dev
+    pdftk zip git libpng-dev libjpeg-dev libjpeg62-turbo-dev libfreetype6-dev libwebp-dev libxpm-dev
 
-
-RUN docker-php-ext-configure gd \
-    --with-gd=shared\
-    --with-webp-dir=/usr \
-    --with-jpeg-dir=/usr \
-    --with-png-dir=/usr \
-    --with-zlib-dir=/usr \
-    --with-xpm-dir=/usr \
-    --with-freetype-dir=/usr \
-    --enable-gd-native-ttf \
-    && pecl config-set php_ini "$PHP_INI_DIR" \
+RUN pecl config-set php_ini "$PHP_INI_DIR" \
     && pear install PHP_CodeSniffer \
     && pecl install apcu-5.1.12 \
     && pecl install redis-5.0.1 \
     && docker-php-ext-enable redis \
     && docker-php-ext-install mysqli \
-    && docker-php-ext-install gd
+    && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
+    && docker-php-ext-install -j$(nproc) gd
 
 RUN curl -s -o phpunit-7.3.2.phar https://phar.phpunit.de/phpunit-7.3.2.phar \
     && chmod 777 phpunit-7.3.2.phar \
