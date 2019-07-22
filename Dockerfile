@@ -44,6 +44,7 @@ RUN pecl config-set php_ini "$PHP_INI_DIR" \
     && pecl install redis-5.0.1 \
     && docker-php-ext-enable redis \
     && docker-php-ext-install mysqli \
+    && docker-php-ext-install zip \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
     && docker-php-ext-install -j$(nproc) gd
 
@@ -80,7 +81,5 @@ COPY php/conf.d/* /usr/local/etc/php/7.2/apache2/conf.d/
 COPY php/conf.d/* /usr/local/etc/php/7.2/cli/conf.d/
 
 COPY apache2-foreground /usr/local/bin/
-
-# PHP Config
 
 CMD ["apache2-foreground"]
