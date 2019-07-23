@@ -42,6 +42,7 @@ RUN pecl config-set php_ini "$PHP_INI_DIR" \
     && pear install PHP_CodeSniffer \
     && pecl install xdebug-2.6.1 \
     && pecl install apcu-5.1.12 \
+    && docker-php-ext-enable apcu \
     && pecl install redis-5.0.1 \
     && docker-php-ext-enable redis \
     && docker-php-ext-install mysqli \
