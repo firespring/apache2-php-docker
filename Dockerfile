@@ -39,7 +39,7 @@ RUN apt-get update && apt-get install -y --force-yes \
     pdftk zip git libpng-dev libjpeg-dev libjpeg62-turbo-dev libfreetype6-dev libwebp-dev libxpm-dev
 
 RUN pecl config-set php_ini "$PHP_INI_DIR" \
-    && pear install PHP_CodeSniffer \
+    && pear install PHP_CodeSniffer-3.3.2 \
     && pecl install xdebug-2.6.1 \
     && pecl install apcu-5.1.12 \
     && docker-php-ext-enable apcu \
