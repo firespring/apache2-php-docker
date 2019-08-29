@@ -36,7 +36,7 @@ RUN set -eux; \
 RUN apt-get update && apt-get install -y --force-yes \
     # Apache\PHP
     php-mysql php-dev php-gd php-redis libhiredis-dev libhiredis0.13 libphp-predis \
-    libapache2-mod-gnutls php-zip php-cli php-xcache \
+    libapache2-mod-gnutls php-zip php-cli \
     # Build Deps
     build-essential curl make \
     # Other Deps
