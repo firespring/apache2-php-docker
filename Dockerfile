@@ -40,8 +40,12 @@ RUN apt-get update && apt-get install -y --force-yes \
     # Build Deps
     build-essential curl make \
     # Other Deps
-    pdftk zip git libpng-dev libjpeg-dev libjpeg62-turbo-dev libfreetype6-dev libwebp-dev libxpm-dev
+    pdftk zip git libpng-dev libjpeg-dev libjpeg62-turbo-dev libfreetype6-dev libwebp-dev libxpm-dev \
+    # clean up packages here otherwise the files will be in every layer
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
+# install and configure php modules
 RUN pecl config-set php_ini "$PHP_INI_DIR" \
     && pear install PHP_CodeSniffer \
     && pecl install xdebug-2.6.1 \
@@ -74,9 +78,6 @@ RUN git clone https://github.com/nrk/phpiredis.git \
     && cd .. && rm -rf phpiredis
 
 RUN curl -sS https://getcomposer.org/installer | php && mv composer.phar /usr/local/bin/composer
-
-RUN apt-get clean \
-    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Apache Config
 ENV APACHE_LOCK_DIR /var/lock/apache2
