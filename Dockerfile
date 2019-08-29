@@ -84,6 +84,7 @@ ENV APACHE_RUN_DIR /var/run/apache2
 ENV APPLICATION_ENV local
 
 COPY apache2/apache2.conf /etc/apache2/
+COPY php/conf.d/opcache.ini /usr/local/etc/php/conf.d/opcache.ini
 
 COPY apache2-foreground /usr/local/bin/
 
